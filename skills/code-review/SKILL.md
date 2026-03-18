@@ -1,9 +1,9 @@
 ---
 name: code-review
 description: Code review staged changes or a specific area of the codebase, optionally delegating to a chosen agent. Use when the user wants a code review.
-argument-hint: [agent] [feature]
+argument-hint: "[agent] [feature]"
 disable-model-invocation: true
-allowed-tools: Bash(git diff:*), Bash(git log:*), Bash, Read, Grep, Glob, Agent
+allowed-tools: "Bash(git diff:*), Bash(git log:*), Bash, Read, Grep, Glob, Agent"
 ---
 
 # Code Review
