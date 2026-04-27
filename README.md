@@ -25,6 +25,7 @@ npx skills add unlearndev/skills --skill spec-generator
 | [code-review](#code-review) | Review staged changes or a specific area of the codebase |
 | [checklist](#checklist) | Convert plans or reviews into persistent markdown checklists |
 | [review-order](#review-order) | Prepare a structured, scannable review map of a branch's changes |
+| [first-five](#first-five) | Triage a branch against the First Five checklist and flag only real concerns |
 
 ### spec-generator
 
@@ -84,3 +85,15 @@ Prepare a scannable map of a branch's changes, grouped by feature and ordered fo
 ```
 
 Outputs a descriptive map (no suggestions, no questions) so you can jump straight into the code yourself.
+
+### first-five
+
+Scan a branch or diff against the **First Five** checklist (Error Handling, Input Boundaries, External Calls, State Mutations, Assumed Dependencies) and report only genuine concerns — verified against the codebase, not flagged on suspicion.
+
+```
+> Run the first five on this branch
+> /first-five
+> /first-five develop
+```
+
+Outputs a short, scannable triage list with `file:line` citations and ⚠️ markers for high-severity findings. No fixes proposed, no clean-section placeholders.
