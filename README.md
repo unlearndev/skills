@@ -24,6 +24,7 @@ npx skills add unlearndev/skills --skill spec-generator
 | [feature-generator](#feature-generator) | Expand a spec into an implementation-ready feature list |
 | [code-review](#code-review) | Review staged changes or a specific area of the codebase |
 | [checklist](#checklist) | Convert plans or reviews into persistent markdown checklists |
+| [review-order](#review-order) | Prepare a structured, scannable review map of a branch's changes |
 
 ### spec-generator
 
@@ -71,3 +72,15 @@ Convert the current plan, code review, or any structured content into a persiste
 ```
 
 Creates a trackable file with checkboxes that the agent checks off as it works through the implementation.
+
+### review-order
+
+Prepare a scannable map of a branch's changes, grouped by feature and ordered for review (Types → Data Flow → Business Logic → Edge Cases) with `file:line` citations.
+
+```
+> Prep a review of this branch
+> /review-order
+> /review-order develop
+```
+
+Outputs a descriptive map (no suggestions, no questions) so you can jump straight into the code yourself.
