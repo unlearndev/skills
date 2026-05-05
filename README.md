@@ -26,6 +26,7 @@ npx skills add unlearndev/skills --skill spec-generator
 | [checklist](#checklist) | Convert plans or reviews into persistent markdown checklists |
 | [review-order](#review-order) | Prepare a structured, scannable review map of a branch's changes |
 | [first-five](#first-five) | Triage a branch against the First Five checklist and flag only real concerns |
+| [triage](#triage) | Group a branch's changes into feature areas and assign risk tiers |
 
 ### spec-generator
 
@@ -97,3 +98,15 @@ Scan a branch or diff against the **First Five** checklist (Error Handling, Inpu
 ```
 
 Outputs a short, scannable triage list with `file:line` citations and ⚠️ markers for high-severity findings. No fixes proposed, no clean-section placeholders.
+
+### triage
+
+Map a branch's changes into feature-area groups, each tiered as High / Medium / Low risk, so you can decide where to spend your review time. This is a triage map — not a review.
+
+```
+> Triage this branch
+> /triage
+> /triage develop
+```
+
+Outputs a risk-ordered report grouped by feature area (e.g. "Authentication", "Notification Delivery"), with auto-generated files pushed to a Skip section. No suggestions, no fixes — just a map.
