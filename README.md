@@ -27,6 +27,7 @@ npx skills add unlearndev/skills --skill spec-generator
 | [review-order](#review-order) | Prepare a structured, scannable review map of a branch's changes |
 | [first-five](#first-five) | Triage a branch against the First Five checklist and flag only real concerns |
 | [triage](#triage) | Group a branch's changes into feature areas and assign risk tiers |
+| [zombies](#zombies) | Suggest the most relevant tests to write for a feature using the ZOMBIES heuristic |
 
 ### spec-generator
 
@@ -110,3 +111,15 @@ Map a branch's changes into feature-area groups, each tiered as High / Medium / 
 ```
 
 Outputs a risk-ordered report grouped by feature area (e.g. "Authentication", "Notification Delivery"), with auto-generated files pushed to a Skip section. No suggestions, no fixes — just a map.
+
+### zombies
+
+Identify the most valuable tests to write for a feature using the ZOMBIES heuristic (Zero, One, Many, Boundaries, Interface, Exceptions, Simple scenarios). Pass a free-text feature description, or omit the argument to use the current branch's diff.
+
+```
+> /zombies
+> /zombies sign-in code login flow
+> /zombies image upload validation
+```
+
+Outputs a grouped list of test ideas — only the ZOMBIES categories that genuinely apply, with specific values pulled from the code (column lengths, expiry windows, throttle limits) so you can see at a glance what's worth covering and write the tests yourself.
