@@ -28,6 +28,7 @@ npx skills add unlearndev/skills --skill spec-generator
 | [first-five](#first-five) | Triage a branch against the First Five checklist and flag only real concerns |
 | [triage](#triage) | Group a branch's changes into feature areas and assign risk tiers |
 | [zombies](#zombies) | Suggest the most relevant tests to write for a feature using the ZOMBIES heuristic |
+| [warm](#warm) | Evaluate newly added or upgraded dependencies against the WARM check |
 
 ### spec-generator
 
@@ -123,3 +124,15 @@ Identify the most valuable tests to write for a feature using the ZOMBIES heuris
 ```
 
 Outputs a grouped list of test ideas — only the ZOMBIES categories that genuinely apply, with specific values pulled from the code (column lengths, expiry windows, throttle limits) so you can see at a glance what's worth covering and write the tests yourself.
+
+### warm
+
+Evaluate newly added or upgraded dependencies against the **WARM** check (Worth it, Alive, Right-sized, Maintained securely). Covers client- and server-side dependencies in any language by diffing the changed manifests against a base.
+
+```
+> WARM check this branch
+> /warm
+> /warm develop
+```
+
+Outputs a per-dependency report scoring each WARM letter (✅ / ⚠️ / 🚩 / ?) with a one-word verdict (Keep, Reconsider, Patch/Pin, Replace), ordered by concern. Facts come from real registry, repo, and advisory lookups — nothing fabricated. Evaluates and reports only; it never edits manifests or runs installs.
