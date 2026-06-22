@@ -135,4 +135,4 @@ Evaluate newly added or upgraded dependencies against the **WARM** check (Worth 
 > /warm develop
 ```
 
-Outputs a per-dependency report scoring each WARM letter (✅ / ⚠️ / 🚩 / ?) with a one-word verdict (Keep, Reconsider, Patch/Pin, Replace), ordered by concern. Facts come from real registry, repo, and advisory lookups — nothing fabricated. Evaluates and reports only; it never edits manifests or runs installs.
+Outputs a per-dependency report scoring each WARM letter with a one-word verdict (Keep, Reconsider, Patch/Pin, Replace), ordered by concern. Facts come from real registry, repo, and advisory lookups — nothing fabricated. Evaluates and reports only; it never edits manifests or runs installs.
