@@ -52,10 +52,10 @@ Suggestion quality bar:
 
 ### 3. Output the report
 
-Group by feature area first (if the diff covers multiple features), then by ZOMBIES letter within each. Use this format exactly:
+Group by feature area first (if the diff covers multiple features), then by ZOMBIES letter within each. **Letters always appear in ZOMBIES order — Zero, One, Many, Boundaries, Interface, Exceptions, Simple.** Skipping a letter never reorders the rest: the letters you do show must still run top-to-bottom in that fixed sequence (e.g. show Boundaries before Interface before Exceptions, even if Zero, One, and Many were all skipped). Use this format exactly:
 
 ```
-## [Feature Area]
+## 🧟 [Feature Area]
 
 **Boundaries**
 - Email field rejects values longer than 255 chars (matches migration column)
@@ -71,7 +71,7 @@ Group by feature area first (if the diff covers multiple features), then by ZOMB
 - Submitting a valid code logs the user in and consumes the code
 ```
 
-If multiple features are in scope, repeat the block per feature with its own `##` heading.
+The `🧟` prefix and `##` level are what make a feature heading stand out from the bold `**Letter**` sub-headings — keep both. If multiple features are in scope, repeat the block per feature, separating each with a `---` horizontal rule so the boundaries between features are obvious.
 
 End with a one-line summary: `X test ideas.`
 
@@ -85,6 +85,8 @@ If there's nothing worth testing (e.g. trivial rename, pure config change), outp
 
 - **Don't stub the tests.** This skill outputs ideas only — the user writes the tests.
 - **Skip ZOMBIES letters that don't apply.** Do not write "(none)" placeholders. Quality over coverage.
+- **Always preserve ZOMBIES order.** The displayed sections must follow Zero → One → Many → Boundaries → Interface → Exceptions → Simple. Skipping letters is fine; reordering the remaining ones is not.
+- **One heading per letter, per feature area.** Each ZOMBIES letter appears at most once within a feature area — collect all of that letter's bullets under its single heading. Never repeat a letter's heading.
 - **Be specific.** Reference actual lengths, timings, statuses, route names from the code. Generic suggestions are worthless.
 - **One behaviour per bullet.** No "and" joining two tests.
 - **No implementation hints.** Don't suggest assertions, factories, or test setup — just what to verify.
