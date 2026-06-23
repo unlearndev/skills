@@ -78,19 +78,19 @@ For each dependency, mark each letter:
 
 - ✅ — fine on this dimension
 - ⚠️ — a concern worth a second look
-- 🚩 — a real problem
+- ❌ — a real problem
 - `?` — couldn't verify
 
 Then give a one-word **verdict** derived from the marks:
 
-- **Keep** — no 🚩, at most minor ⚠️.
-- **Reconsider** — 🚩 on **W** or **R** (you probably don't need this dependency, or not this much of it).
-- **Patch/Pin** — 🚩 on **M** only (the dependency is justified but has a security issue — upgrade to the fixed version or pin).
-- **Replace** — 🚩 on **A** (unmaintained) or multiple 🚩s.
+- **Keep** — no ❌, at most minor ⚠️.
+- **Reconsider** — ❌ on **W** or **R** (you probably don't need this dependency, or not this much of it).
+- **Patch/Pin** — ❌ on **M** only (the dependency is justified but has a security issue — upgrade to the fixed version or pin).
+- **Replace** — ❌ on **A** (unmaintained) or multiple ❌s.
 
 ### 4. Output the report
 
-Order dependencies by concern: 🚩 verdicts first, then ⚠️, then clean **Keep**s. Use this format exactly:
+Order dependencies by concern: ❌ verdicts first, then ⚠️, then clean **Keep**s. Use this format exactly:
 
 ```
 ## `dayjs` — added to package.json (client)
@@ -104,7 +104,7 @@ Order dependencies by concern: 🚩 verdicts first, then ⚠️, then clean **Ke
 
 ## `left-pad` — added to package.json (client)
 
-- 🚩 **Worth it** — single use, pads a string; ~5 lines of your own code replaces it
+- ❌ **Worth it** — single use, pads a string; ~5 lines of your own code replaces it
 - ⚠️ **Alive** — last release 4 years ago
 - ✅ **Right-sized** — tiny, no sub-dependencies
 - ✅ **Maintained securely** — no known advisories
@@ -114,7 +114,7 @@ Order dependencies by concern: 🚩 verdicts first, then ⚠️, then clean **Ke
 ## `guzzlehttp/guzzle` — upgraded 7.4.0 → 7.4.5 in composer.json (server)
 
 - ✅ **Alive** — actively maintained
-- 🚩 **Maintained securely** — 7.4.0 affected by GHSA-xxxx (cookie leak); 7.4.5 fixes it
+- ❌ **Maintained securely** — 7.4.0 affected by GHSA-xxxx (cookie leak); 7.4.5 fixes it
 
 **Verdict: Patch/Pin** — the upgrade resolves the advisory; keep it.
 ```
@@ -130,6 +130,6 @@ End with a one-line summary: `N dependencies evaluated — X keep, Y reconsider,
 - **Don't fabricate facts.** Release dates, versions, and advisories must come from a real lookup. If you can't verify, mark `?` and say what you checked.
 - **One concern per bullet.** Each WARM letter is one line; don't merge two findings.
 - **Be specific and quantified.** "last release 4 years ago", "pulls 40 sub-dependencies", "GHSA-xxxx fixed in 7.4.5" — not "looks old" or "might have issues".
-- **The verdict follows from the marks.** Don't soften a 🚩 into a Keep, or hedge a clean dependency into a Reconsider. State the verdict plainly.
+- **The verdict follows from the marks.** Don't soften a ❌ into a Keep, or hedge a clean dependency into a Reconsider. State the verdict plainly.
 - **No preamble.** Start with the first `## ` dependency heading (or the no-dependencies line). No "Here's the WARM check…".
 - **Don't change any files.** This skill evaluates and reports — it doesn't remove dependencies, edit manifests, or run installs.
