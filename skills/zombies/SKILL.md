@@ -43,6 +43,12 @@ ZOMBIES stands for:
 
 For each ZOMBIES letter, ask: *is there a test here that would catch a real bug or document real behaviour?* If yes, list it. If no, skip the letter.
 
+**Cross-reference against the existing test file.** This skill outputs tests *to write*, not a coverage map — so:
+
+- **Skip behaviours already fully covered** by an existing test. A covered behaviour is not a test to write; listing it buries the gaps that matter.
+- **Keep a behaviour that's only partially covered** — where a test exercises it but misses an important assertion (e.g. asserts a successful login redirect but never checks the code is consumed). Prefix the bullet with `[partial]` and name the missing assertion.
+- When unsure whether a test covers a behaviour, keep the bullet rather than dropping it — a false "already covered" silently hides a real gap.
+
 Suggestion quality bar:
 
 - **Specific, not generic.** "Test maximum email length (255 chars)" beats "Test boundaries".
@@ -68,7 +74,7 @@ Group by feature area first (if the diff covers multiple features), then by ZOMB
 
 **Simple**
 - Requesting a code emails the user and creates a `SignInCode` row
-- Submitting a valid code logs the user in and consumes the code
+- [partial] valid code logs the user in — existing test asserts the redirect but never asserts the code is consumed
 ```
 
 The `🧟` prefix and `##` level are what make a feature heading stand out from the bold `**Letter**` sub-headings — keep both. If multiple features are in scope, repeat the block per feature, separating each with a `---` horizontal rule so the boundaries between features are obvious.
@@ -85,6 +91,7 @@ If there's nothing worth testing (e.g. trivial rename, pure config change), outp
 
 - **Don't stub the tests.** This skill outputs ideas only — the user writes the tests.
 - **Skip ZOMBIES letters that don't apply.** Do not write "(none)" placeholders. Quality over coverage.
+- **Gaps only.** Skip behaviours an existing test already fully covers. Keep partially-covered behaviours, prefixed with `[partial]` and naming the missing assertion. When unsure, keep the bullet — never silently drop a real gap.
 - **Always preserve ZOMBIES order.** The displayed sections must follow Zero → One → Many → Boundaries → Interface → Exceptions → Simple. Skipping letters is fine; reordering the remaining ones is not.
 - **One heading per letter, per feature area.** Each ZOMBIES letter appears at most once within a feature area — collect all of that letter's bullets under its single heading. Never repeat a letter's heading.
 - **Be specific.** Reference actual lengths, timings, statuses, route names from the code. Generic suggestions are worthless.
