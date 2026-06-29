@@ -29,6 +29,7 @@ npx skills add unlearndev/skills --skill spec-generator
 | [triage](#triage) | Group a branch's changes into feature areas and assign risk tiers |
 | [zombies](#zombies) | Suggest the most relevant tests to write for a feature using the ZOMBIES heuristic |
 | [warm](#warm) | Evaluate newly added or upgraded dependencies against the WARM check |
+| [preflight](#preflight) | Produce a production pre-flight checklist of everything a branch needs once it merges |
 
 ### spec-generator
 
@@ -136,3 +137,14 @@ Evaluate newly added or upgraded dependencies against the **WARM** check (Worth 
 ```
 
 Outputs a per-dependency report scoring each WARM letter with a one-word verdict (Keep, Reconsider, Patch/Pin, Replace), ordered by concern. Facts come from real registry, repo, and advisory lookups — nothing fabricated. Evaluates and reports only; it never edits manifests or runs installs.
+
+### preflight
+
+Read the diff between the current branch and main and produce a production pre-flight checklist of everything that must be done or configured once the change merges — migrations, queue workers, env vars, new services.
+
+```
+> What needs doing in production before this merges?
+> /preflight
+```
+
+Outputs a short checklist grouped by type (Database, Infrastructure, Configuration, Operational), sub-grouped by confidence, with `file:line` citations for every item. Only includes what the diff actually supports — no padding.
