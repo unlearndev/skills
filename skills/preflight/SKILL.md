@@ -27,6 +27,7 @@ Produce a production pre-flight checklist for the current branch.
    label fits — for example **Required** (broken without it), **Verify** /
    **Likely** (almost certainly needed, depends on setup), **Recommended** /
    **Nice to confirm** (worth a glance, may already be handled).
+5. For every item, cite the file in the diff that implies it (no line numbers).
 
 ## Rules
 

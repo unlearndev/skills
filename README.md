@@ -147,4 +147,4 @@ Read the diff between the current branch and main and produce a production pre-f
 > /preflight
 ```
 
-Outputs a short checklist grouped by type (Database, Infrastructure, Configuration, Operational), sub-grouped by confidence.
+Outputs a short checklist grouped by type (Database, Infrastructure, Configuration, Operational), sub-grouped by confidence, with a file citation for every item.
