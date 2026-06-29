@@ -1,6 +1,6 @@
 # Skills
 
-A collection of [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skills for product development workflows by [Unlearn](https://unlearn.dev).
+A collection of skills for product development workflows by [Unlearn](https://unlearn.dev).
 
 ## Install
 
@@ -8,7 +8,7 @@ A collection of [Claude Code](https://docs.anthropic.com/en/docs/claude-code) sk
 npx skills add unlearndev/skills
 ```
 
-This uses [skills.sh](https://skills.sh) to install all skills into your project's `.claude/skills/` directory. Once installed, Claude Code will automatically detect and use them based on your prompts.
+This uses [skills.sh](https://skills.sh) to install all skills into your project's `.claude/skills/` directory. Once installed, your agent will automatically detect and use them based on your prompts.
 
 To install a single skill:
 
