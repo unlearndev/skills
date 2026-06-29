@@ -140,11 +140,11 @@ Outputs a per-dependency report scoring each WARM letter with a one-word verdict
 
 ### preflight
 
-Read the diff between the current branch and main and produce a production pre-flight checklist of everything that must be done or configured once the change merges — migrations, queue workers, env vars, new services.
+Read the diff between the current branch and main and produce a production pre-flight checklist of everything that must be done or configured once the change merges (migrations, queue workers, env vars, new services).
 
 ```
 > What needs doing in production before this merges?
 > /preflight
 ```
 
-Outputs a short checklist grouped by type (Database, Infrastructure, Configuration, Operational), sub-grouped by confidence, with `file:line` citations for every item. Only includes what the diff actually supports — no padding.
+Outputs a short checklist grouped by type (Database, Infrastructure, Configuration, Operational), sub-grouped by confidence, with `file:line` citations for every item.
