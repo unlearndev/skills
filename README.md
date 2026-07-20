@@ -30,6 +30,8 @@ npx skills add unlearndev/skills --skill spec-generator
 | [zombies](#zombies) | Suggest the most relevant tests to write for a feature using the ZOMBIES heuristic |
 | [warm](#warm) | Evaluate newly added or upgraded dependencies against the WARM check |
 | [preflight](#preflight) | Produce a production pre-flight checklist of everything a branch needs once it merges |
+| [ship-gate](#ship-gate) | Scan the staged diff for secrets, debug code, and stray files and return a straight PASS or BLOCK |
+| [qa-checklist](#qa-checklist) | Turn a branch's diff into a short, click-through manual QA checklist for the deployed app |
 
 ### spec-generator
 
@@ -148,3 +150,27 @@ Read the diff between the current branch and main and produce a production pre-f
 ```
 
 Outputs a short checklist grouped by type (Database, Infrastructure, Configuration, Operational), sub-grouped by confidence, with a file citation for every item.
+
+### ship-gate
+
+Scan the **staged** diff for the four things that should never be committed — secrets or API keys, leftover debug code (`dd()`, `console.log`), large commented-out blocks, and accidentally added large or binary files — reporting the file and line for each.
+
+```
+> Check what's staged before I commit
+> Anything I shouldn't commit here?
+> /ship-gate
+```
+
+Ends with a single **PASS** or **BLOCK** verdict, so it drops cleanly into a pre-commit or pre-push hook. Reports only — it never unstages or edits anything.
+
+### qa-checklist
+
+Read a branch's diff and produce a short, manual QA checklist to run against the **deployed** app — only the behaviour this change touched, written as plain-English steps a person can click through.
+
+```
+> What should I test on this branch after deploy?
+> /qa-checklist
+> /qa-checklist develop
+```
+
+Outputs a ~5–10 item markdown checklist, each step pairing an action with its expected result, with any required preconditions (test accounts, feature flags) noted up front. Not a regression suite and not a code review.
