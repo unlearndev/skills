@@ -31,7 +31,7 @@ npx skills add unlearndev/skills --skill spec-generator
 | [warm](#warm) | Evaluate newly added or upgraded dependencies against the WARM check |
 | [preflight](#preflight) | Produce a production pre-flight checklist of everything a branch needs once it merges |
 | [ship-gate](#ship-gate) | Scan the staged diff for secrets, debug code, and stray files and return a straight PASS or BLOCK |
-| [qa-checklist](#qa-checklist) | Turn a branch's diff into a short, click-through manual QA checklist for the deployed app |
+| [qa-checklist](#qa-checklist) | Turn a branch's diff into a short, click-through manual QA checklist for the feature |
 
 ### spec-generator
 
