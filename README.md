@@ -165,7 +165,7 @@ Ends with a single **PASS** or **BLOCK** verdict, so it drops cleanly into a pre
 
 ### qa-checklist
 
-Read a branch's diff and produce a short, manual QA checklist to run against the **deployed** app — only the behaviour this change touched, written as plain-English steps a person can click through.
+Read a branch's diff and produce a short, manual QA checklist to run against the feature — only the behaviour this change touched, written as plain-English steps a person can click through.
 
 ```
 > What should I test on this branch after deploy?
@@ -173,4 +173,4 @@ Read a branch's diff and produce a short, manual QA checklist to run against the
 > /qa-checklist develop
 ```
 
-Outputs a ~5–10 item markdown checklist, each step pairing an action with its expected result, with any required preconditions (test accounts, feature flags) noted up front. Not a regression suite and not a code review.
+Outputs a ~5–10 item markdown checklist, each step pairing an action with its expected result, with any required preconditions (test accounts, feature flags) noted up front.
