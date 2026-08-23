@@ -32,6 +32,7 @@ npx skills add unlearndev/skills --skill spec-generator
 | [preflight](#preflight) | Produce a production pre-flight checklist of everything a branch needs once it merges |
 | [ship-gate](#ship-gate) | Scan the staged diff for secrets, debug code, and stray files and return a straight PASS or BLOCK |
 | [qa-checklist](#qa-checklist) | Turn a branch's diff into a short, click-through manual QA checklist for the feature |
+| [judge-arch](#judge-arch) | Judge a branch's changes against the design decisions in the repo's DECISIONS.md |
 
 ### spec-generator
 
@@ -174,3 +175,15 @@ Read a branch's diff and produce a short, manual QA checklist to run against the
 ```
 
 Outputs a ~5–10 item markdown checklist, each step pairing an action with its expected result, with any required preconditions (test accounts, feature flags) noted up front.
+
+### judge-arch
+
+Judge the current branch's changes against the design decisions recorded in the repo's `DECISIONS.md` — only those decisions, no other findings or style feedback. Every violation needs evidence you can point at in the change: a file and line, a whole file, or the set of files involved.
+
+```
+> Judge this branch against our decisions
+> Check this change against DECISIONS.md
+> /judge-arch
+```
+
+Outputs a report grouped by violated decision, each violation citing where it is, what the code does, and the smallest concrete fix that satisfies the decision.
