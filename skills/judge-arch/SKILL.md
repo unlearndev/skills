@@ -38,6 +38,7 @@ headings so the report renders grouped by decision:
 
 **<where>**
 <what the code does, one sentence>
+- **What breaks:** <the concrete consequence of shipping this as is, one sentence>
 - **Potential fix:** <the smallest concrete change that satisfies the decision, one sentence>
 ```
 
@@ -50,6 +51,9 @@ Rules for the report:
   section. `<where>` is `file:line` for a single spot, the file for a
   file-wide problem, or the files involved when the violation spans
   several.
+- The **What breaks** line names a real failure with a trigger, even one
+  that arrives later (e.g. "rename a column in loyalty and refunds
+  break"), never a vague quality complaint ("this hurts maintainability").
 - The **Potential fix** line must be actionable without reading anything else: name
   the concrete mechanism to use, not just the one to avoid (e.g. "Move
   the merge steps into an `app/Actions/MergeIdeas` action and have the
