@@ -33,6 +33,7 @@ npx skills add unlearndev/skills --skill spec-generator
 | [ship-gate](#ship-gate) | Scan the staged diff for secrets, debug code, and stray files and return a straight PASS or BLOCK |
 | [qa-checklist](#qa-checklist) | Turn a branch's diff into a short, click-through manual QA checklist for the feature |
 | [judge-arch](#judge-arch) | Judge a branch's changes against the design decisions in the repo's DECISIONS.md |
+| [trace](#trace) | Trace one journey through an unfamiliar codebase and draw it as a cited flow diagram |
 
 ### spec-generator
 
@@ -187,3 +188,15 @@ Judge the current branch's changes against the design decisions recorded in the 
 ```
 
 Outputs a report grouped by violated decision, each violation citing where it is, what the code does, and the smallest concrete fix that satisfies the decision.
+
+### trace
+
+Answer a question about how something works in a codebase you didn't write by tracing one journey end to end, from the button, route, or command that starts it through to the response.
+
+```
+> Where does authorization get checked when a user edits their feedback?
+> What happens to a user's votes when they delete their account?
+> /trace how does a user sign in?
+```
+
+Outputs a top-to-bottom flow diagram, one box per hop, with the `file:line` for each and the names worth searching for. Vendor code, implicit framework hops, and failure branches are marked. If nothing in the app actually triggers the journey, it says so first. Anything inferred rather than read is listed under Not sure.
