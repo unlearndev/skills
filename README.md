@@ -34,6 +34,9 @@ npx skills add unlearndev/skills --skill spec-generator
 | [qa-checklist](#qa-checklist) | Turn a branch's diff into a short, click-through manual QA checklist for the feature |
 | [judge-arch](#judge-arch) | Judge a branch's changes against the design decisions in the repo's DECISIONS.md |
 | [trace](#trace) | Trace one journey through an unfamiliar codebase and draw it as a cited flow diagram |
+| [cruft-hunt](#cruft-hunt) | Hunt for what coding agents left behind and rank the deletion candidates, with evidence |
+| [is-it-dead](#is-it-dead) | Prove one candidate is dead (or not) with the DEAD checks before deleting it, one commit at a time |
+| [leftovers](#leftovers) | End-of-branch cleanup: remove what this branch added that the finished work doesn't use |
 
 ### spec-generator
 
@@ -200,3 +203,39 @@ Answer a question about how something works in a codebase you didn't write by tr
 ```
 
 Outputs a top-to-bottom flow diagram, one box per hop, with the `file:line` for each and the names worth searching for. Vendor code, implicit framework hops, and failure branches are marked. If nothing in the app actually triggers the journey, it says so first. Anything inferred rather than read is listed under Not sure.
+
+### cruft-hunt
+
+Hunt a codebase for what coding agents leave behind: abandoned approaches (ghosts), duplicate helpers (twins), one-use abstractions (scaffolding), unused packages (baggage), options and guards nothing uses (just-in-case) and litter. Runs the stack's dead-code tool first (knip, composer-unused, vulture/deptry, deadcode, cargo-machete) without adding it to the project, then investigates what tools can't see.
+
+```
+> Hunt for cruft
+> /cruft-hunt
+> /cruft-hunt server/
+```
+
+Outputs a short, ranked list of candidates grouped by leftover type, each with its evidence and payoff/risk, plus a **⚠️ Check first** section for anything that might be reached another way. Read-only: candidates, not verdicts.
+
+### is-it-dead
+
+Prove whether one file, function, route, job, flag branch or package is really dead before deleting it. Runs the **DEAD** checks (Direct callers, Every other way in, Anyone outside, Data from production), checks the story in git history, then has a fresh context argue that it's still used.
+
+```
+> Is the old CSV exporter dead?
+> /is-it-dead server/lib/export/csvExporter.ts
+> /is-it-dead papaparse
+```
+
+Outputs the evidence for each check and a verdict: **DEAD**, **ALIVE** or **NOT PROVEN** (with a tombstone to add). On DEAD, and only after you say yes, it deletes the item and its own tests in one commit, runs your checks, and reports anything the deletion left unused.
+
+### leftovers
+
+End-of-branch cleanup. Finds what this branch added that the finished work doesn't use: abandoned first attempts, helpers that duplicate existing ones, unused new files, exports, packages and options, debug logging, commented-out code and agent summary files.
+
+```
+> Clean up the leftovers before I commit
+> /leftovers
+> /leftovers develop
+```
+
+Outputs a numbered list with evidence, asks which to remove, removes only those, then runs your checks.
