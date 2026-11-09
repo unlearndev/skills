@@ -33,7 +33,7 @@ Then two habits: **check the story** (why was it added?) and **one item per comm
 
 ### 1. Pin down the candidate
 
-Work out exactly what it is and every name it could be reached by: file path, exported names, the route path (`/u/:token`), the job or template name as a string (`'renewal-reminder'`), the package name and what it's imported as, kebab/snake/camel variants. You'll search for all of them.
+Work out exactly what it is and every name it could be reached by: file path, exported names, the route path (`/r/:code`), the job or template name as a string (`'order-shipped'`), the package name and what it's imported as, kebab/snake/camel variants. You'll search for all of them.
 
 ### 2. D · Direct callers
 
@@ -113,14 +113,14 @@ Never round NOT PROVEN up to DEAD.
 Use this format exactly:
 
 ```
-## ⚰️ `server/lib/export/csvExporter.ts`
+## ⚰️ `src/billing/invoicePdfV1.ts`
 
-**D · Direct callers:** none. `git grep -n exportSubscribersCsv` finds the definition and `server/lib/export/csvExporter.test.ts` only. A test is not a caller. knip --production lists it as unused.
+**D · Direct callers:** none. `git grep -n renderInvoicePdf` finds the definition and `src/billing/invoicePdfV1.test.ts` only. A test is not a caller. knip --production lists it as unused.
 **E · Every other way in:** none. Not in a scanned folder, no string references, not in scripts or config.
 **A · Anyone outside:** none. An internal helper, not a route or public file.
-**D · Data from production:** not needed. No route or job can reach it; `/api/subscribers/export` uses `streamCsv.ts` (server/routes/subscribers.ts:3).
-**Story:** added in f47211b "Add subscriber CSV export" (9 Sep), replaced a week later by e06791a "Stream the CSV export so big lists don't time out", which switched the route and left this file behind.
-**Defence (fresh context):** no evidence found. Looked at imports, strings, scripts, config, docs, ops/.
+**D · Data from production:** not needed. No route or job can reach it; `/invoices/:id.pdf` uses `renderInvoice.ts` (src/routes/invoices.ts:7).
+**Story:** added in 91b07fe "Add PDF invoices" (3 Mar), replaced two days later by 4c2e9a1 "Render invoices in a worker so big orders don't time out", which switched the route and left this file behind.
+**Defence (fresh context):** no evidence found. Looked at imports, strings, scripts, config, docs, logs.
 
 **Verdict: DEAD.** An abandoned first approach, kept alive only by its own test.
 
@@ -130,7 +130,7 @@ Delete it? One commit: the file and its test. Afterwards I'll re-run knip to see
 For ALIVE, end with the line that proves it:
 
 ```
-**Verdict: ALIVE.** Called from outside the repo: `public/embed.js` posts to it from other sites (docs/embed.md), and ops/route-hits-last-30-days.csv shows 1,873 requests from 4 origins.
+**Verdict: ALIVE.** Called from outside the repo: the iOS app calls it (docs/mobile-api.md), and logs/requests-30d.csv shows 4,210 requests with an `iOS/` user agent.
 ```
 
 For NOT PROVEN, end with the tombstone and the wait:

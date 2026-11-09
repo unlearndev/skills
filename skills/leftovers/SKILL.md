@@ -49,11 +49,11 @@ Before listing an item, check it isn't reached another way (a string, a folder s
 Use this format exactly:
 
 ```
-## Leftovers on `feature/subscriber-search` (since main)
+## Leftovers on `feature/booking-search` (since main)
 
-1. `client/src/hooks/useSubscriberSearch.ts`. Added in a8a496f, replaced by server-side search in c68ee09. Nothing imports it.
-2. `lodash`. Added for `debounce` in Subscribers.tsx; that's the only use.
-3. `console.log('DEBUG search', …)` at server/routes/subscribers.ts:12.
+1. `src/hooks/useBookingFilter.ts`. Added in 3f1a9c2, replaced by server-side filtering in 7d40b18. Nothing imports it.
+2. `date-fns`. Added for one `format()` call in BookingList.tsx; `Intl.DateTimeFormat` does the same.
+3. `console.log('DEBUG filter', …)` at src/api/bookings.ts:27.
 4. `IMPLEMENTATION_SUMMARY.md`. Agent summary, nothing links to it.
 
 4 leftovers. Remove all, some (give the numbers), or none?

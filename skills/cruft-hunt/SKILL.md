@@ -54,7 +54,7 @@ Look for each leftover with these signals:
 - **Ghosts**: names like `old`, `legacy`, `v1`/`v2`, `new`, `temp`, `backup`, `deprecated`. Two implementations of one job where only one is wired up. Commit messages that say "switch to", "replace", "move X to", "instead of": check the old version was actually removed (`git log --oneline`, `git show --stat <hash>`).
 - **Twins**: helpers with the same job in different places (`formatDate`, `slugify`, `isValidEmail`, `debounce`, `formatMoney`, API clients). Compare the bodies. **Note any behaviour difference** (time zone, rounding, accents, null handling, error handling): that makes a merge riskier, and the difference may be a bug.
 - **Scaffolding**: an interface or abstract class with one implementation, a factory with one product, a base class with one subclass, a registry or config with one entry, a generic wrapper used once.
-- **Baggage**: packages the tool reports as unused, packages imported only by other candidates, and packages used once for something the platform does (`uuid` vs `crypto.randomUUID()`, `lodash` for one function, `axios` next to `fetch`).
+- **Baggage**: packages the tool reports as unused, packages imported only by other candidates, and packages used once for something the platform does (`moment` to format one date, a micro-package like `is-number`, a whole UI kit for one component).
 - **Just-in-case**: parameters and options no caller passes (check every call site), defaults never overridden, guards for impossible states, shims for an old data format (check git history: did the migration run?), fallbacks for config that's always set.
 - **Litter**: commented-out blocks of code, debug logging (`console.log('DEBUG`, `dd(`, `var_dump(`, `print(`), files like `IMPLEMENTATION_SUMMARY.md`, `*_NOTES.md`, `CHANGES.md` that an agent wrote and nothing links to, stale TODOs, tests whose subject is itself a candidate.
 
@@ -68,7 +68,7 @@ This isn't a full proof (that's `/is-it-dead`), just a quick check so nothing ri
 
 - **Every other way in?** Is it reached by a string, a folder scan or glob, config, a `package.json`/`composer.json` script, CI, or a framework convention?
 - **Anyone outside?** Is it a route, webhook, public file, email link, or exported API that something outside the repo could call?
-- **Data from production?** If the repo holds runtime evidence (logs, analytics or flag exports, an `ops/` folder), does it show this running? Does the code run on a cycle longer than that evidence covers?
+- **Data from production?** If the repo holds runtime evidence (logs, analytics or flag exports, an `ops/` or `logs/` folder), does it show this running? Does the code run on a cycle longer than that evidence covers?
 
 If any answer is "maybe", move the candidate to **⚠️ Check first** and say which question it raised.
 
@@ -82,22 +82,22 @@ Use this format exactly:
 
 ```
 ### Ghosts
-- `server/lib/export/csvExporter.ts` + its test. Old CSV export, replaced by `streamCsv.ts` in e06791a. Only its own test imports it. Payoff high · risk low
+- `src/billing/invoicePdfV1.ts` + its test. First PDF approach, replaced by `renderInvoice.ts` in 4c2e9a1. Only its own test imports it. Payoff high · risk low
 
 ### Twins
-- `formatDate` (client/src/utils/format.ts:1) and `formatIssueDate` (client/src/components/IssueRow.tsx:4). Same job, but one uses local time and one UTC. Payoff medium · risk medium
+- `formatPrice` (src/utils/money.ts:3) and `toCurrency` (src/components/CartRow.tsx:8). Same job, but one rounds half-up and one rounds half-even. Payoff medium · risk medium
 
 ### Baggage
-- `axios`. In package.json, never imported (knip). Payoff medium · risk low
+- `moment`. One import (src/pages/Bookings.tsx:2) to format a date that `Intl.DateTimeFormat` already handles. Payoff medium · risk low
 
 ### Litter
-- `console.log('DEBUG search', …)` at server/routes/subscribers.ts:12. Payoff low · risk low
+- `console.log('DEBUG cart', …)` at src/api/cart.ts:41. Payoff low · risk low
 
 ### ⚠️ Check first
-- `public/embed.js`. knip: unused file. Nothing in the app loads it, but it's served publicly. Anyone outside?
-- `server/jobs/prune-processed-events.ts`. knip: unused file. `server/jobs/loader.ts` loads this folder by scanning it. Another way in.
+- `public/widget.js`. knip: unused file. Nothing in the app loads it, but it's served publicly. Anyone outside?
+- `src/cron/expire-holds.ts`. knip: unused file. `src/cron/index.ts` loads this folder by scanning it. Another way in.
 
-**Start with:** csvExporter.ts, axios, the formatDate twins.
+**Start with:** invoicePdfV1.ts, moment, the price twins.
 
 9 candidates, 2 to check first.
 ```
